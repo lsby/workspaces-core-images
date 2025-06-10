@@ -17,3 +17,7 @@
 ```
 docker run --rm -it --shm-size=512m -p 6901:6901 -e VNC_NAME admin -e VNC_PW 123456 -e VNC_VIEW_ONLY_PW 123456 kasm-core
 ```
+
+## 允许 sudo
+
+默认用户可以不通过密码使用 sudo
