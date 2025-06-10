@@ -1,0 +1,13 @@
+services:
+  app:
+    container_name: lsby-kasm-core
+    # image: lsby/kasm-core:0.0.1
+    build:
+      context: .
+      dockerfile: dockerfile-kasm-core
+    ports:
+      - 6901:6901
+    volumes:
+      - ./docker-kasm-core/:/home/kasm-user
+    # network_mode: "host"
+    restart: unless-stopped
