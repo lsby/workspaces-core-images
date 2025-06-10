@@ -188,6 +188,10 @@ RUN bash $INST_SCRIPTS/cleanup/cleanup.sh && rm -rf $INST_SCRIPTS/cleanup/
 RUN sed -i 's/ -sslOnly//g' $STARTUPDIR/vnc_startup.sh \
     && sed -i 's/require_ssl: true/require_ssl: false/' /usr/share/kasmvnc/kasmvnc_defaults.yaml
 
+# 允许使用sudo
+RUN usermod -aG sudo kasm-user \
+    && echo "kasm-user ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/kasm-user && chmod 440 /etc/sudoers.d/kasm-user
+
 #### Runtime Stage ####
 FROM scratch
 COPY --from=base_layer / /
