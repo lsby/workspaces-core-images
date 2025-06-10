@@ -42,6 +42,9 @@ VNC_VIEW_ONLY_PW=$tmpval
 tmpval=$VNC_PW
 unset VNC_PW
 VNC_PW=$tmpval
+tmpval=$VNC_NAME
+unset VNC_NAME
+VNC_NAME=$tmpval
 
 BUILD_ARCH=$(uname -p)
 if [ -z ${KASM_PROFILE_CHUNK_SIZE} ]; then
@@ -234,7 +237,7 @@ function start_window_manager (){
 function start_audio_out_websocket (){
 	if [[ ${KASM_SVC_AUDIO:-1} == 1 ]]; then
 		log 'Starting audio websocket server'
-		$STARTUPDIR/jsmpeg/kasm_audio_out-linux kasmaudio 8081 4901 ${HOME}/.vnc/self.pem ${HOME}/.vnc/self.pem "kasm_user:$VNC_PW"  &
+		$STARTUPDIR/jsmpeg/kasm_audio_out-linux kasmaudio 8081 4901 ${HOME}/.vnc/self.pem ${HOME}/.vnc/self.pem "$VNC_NAME:$VNC_PW"  &
 
 		KASM_PROCS['kasm_audio_out_websocket']=$!
 
@@ -277,7 +280,7 @@ function start_pcm_audio (){
                 echo "Starting Pulse"
                 HOME=/var/run/pulse pulseaudio --start
             fi
-                /opt/audio/start kasmaudio 4901 ${HOME}/.vnc/self.pem ${HOME}/.vnc/self.pem "kasm_user:$VNC_PW" &
+                /opt/audio/start kasmaudio 4901 ${HOME}/.vnc/self.pem ${HOME}/.vnc/self.pem "$VNC_NAME:$VNC_PW" &
 
                 KASM_PROCS['kasm_audio_server']=$!
 
@@ -291,7 +294,7 @@ function start_pcm_audio (){
 function start_audio_in (){
 	if [[ ${KASM_SVC_AUDIO_INPUT:-1} == 1 ]]; then
 		log 'Starting audio input server'
-		$STARTUPDIR/audio_input/kasm_audio_input_server --ssl --auth-token "kasm_user:$VNC_PW" --cert ${HOME}/.vnc/self.pem --certkey ${HOME}/.vnc/self.pem &
+		$STARTUPDIR/audio_input/kasm_audio_input_server --ssl --auth-token "$VNC_NAME:$VNC_PW" --cert ${HOME}/.vnc/self.pem --certkey ${HOME}/.vnc/self.pem &
 
 		KASM_PROCS['kasm_audio_in']=$!
 
@@ -305,7 +308,7 @@ function start_audio_in (){
 function start_upload (){
 	if [[ ${KASM_SVC_UPLOADS:-1} == 1 ]]; then
 		log 'Starting upload server'
-		$STARTUPDIR/upload_server/kasm_upload_server --ssl --auth-token "kasm_user:$VNC_PW" --port 4902 --upload_dir ${HOME}/Uploads &
+		$STARTUPDIR/upload_server/kasm_upload_server --ssl --auth-token "$VNC_NAME:$VNC_PW" --port 4902 --upload_dir ${HOME}/Uploads &
 
 		KASM_PROCS['upload_server']=$!
 
@@ -319,7 +322,7 @@ function start_upload (){
 function start_gamepad (){
 	if [[ ${KASM_SVC_GAMEPAD:-1} == 1 ]]; then
 		log 'Starting gamepad server'
-		$STARTUPDIR/gamepad/kasm_gamepad_server --ssl --auth-token "kasm_user:$VNC_PW" --cert ${HOME}/.vnc/self.pem --certkey ${HOME}/.vnc/self.pem &
+		$STARTUPDIR/gamepad/kasm_gamepad_server --ssl --auth-token "$VNC_NAME:$VNC_PW" --cert ${HOME}/.vnc/self.pem --certkey ${HOME}/.vnc/self.pem &
 
 		KASM_PROCS['kasm_gamepad']=$!
 
@@ -536,8 +539,8 @@ if [[ -f $PASSWD_PATH ]]; then
     rm -f $PASSWD_PATH
 fi
 
-echo -e "${VNC_PW}\n${VNC_PW}\n" | kasmvncpasswd -u kasm_user -wo
-echo -e "${VNC_PW}\n${VNC_PW}\n" | kasmvncpasswd -u kasm_viewer -r
+echo -e "${VNC_PW}\n${VNC_PW}\n" | kasmvncpasswd -u ${VNC_NAME} -wo
+echo -e "${VNC_PW}\n${VNC_PW}\n" | kasmvncpasswd -u ${VNC_NAME}_viewer -r
 chmod 600 $PASSWD_PATH
 
 
