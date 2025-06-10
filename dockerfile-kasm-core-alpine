@@ -225,7 +225,7 @@ ENV AUDIO_PORT=4901 \
     VNC_PW=123456 \
     VNC_RESOLUTION=1280x1024 \
     VNC_RESOLUTION=1280x720 \
-    VNC_VIEW_ONLY_PW=vncviewonlypassword \
+    VNC_VIEW_ONLY_PW=123456 \
     TZ=$TZ
 
 ### Ports and user

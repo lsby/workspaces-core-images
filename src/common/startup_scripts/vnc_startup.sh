@@ -540,7 +540,7 @@ if [[ -f $PASSWD_PATH ]]; then
 fi
 
 echo -e "${VNC_PW}\n${VNC_PW}\n" | kasmvncpasswd -u ${VNC_NAME} -wo
-echo -e "${VNC_PW}\n${VNC_PW}\n" | kasmvncpasswd -u ${VNC_NAME}_viewer -r
+echo -e "${VNC_VIEW_ONLY_PW}\n${VNC_VIEW_ONLY_PW}\n" | kasmvncpasswd -u ${VNC_NAME}_viewer -r
 chmod 600 $PASSWD_PATH
 
 
