@@ -1,3 +1,3 @@
-docker push lsby/kasm-core:0.0.1
+docker push lsby/kasm-core:ubuntu-22-04
 
 pause

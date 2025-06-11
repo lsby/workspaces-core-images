@@ -1,3 +1,3 @@
-docker load -i lsby-kasm-core-0-0-1.tar
+docker load -i lsby-kasm-core-ubuntu-22-04.tar
 
 pause

@@ -1,3 +1,3 @@
-docker build -t lsby/kasm-core:0.0.1 -f dockerfile-kasm-core .
+docker build -t lsby/kasm-core:ubuntu-22-04 -f dockerfile-kasm-core .
 
 pause
