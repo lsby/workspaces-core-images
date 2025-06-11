@@ -1,7 +1,7 @@
 services:
   app:
     container_name: lsby-kasm-core
-    # image: lsby/kasm-core:0.0.1
+    # image: lsby/kasm-core:ubuntu-22-04
     build:
       context: .
       dockerfile: dockerfile-kasm-core
